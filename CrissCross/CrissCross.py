@@ -5,6 +5,7 @@ import numpy as np
 
 def start():
     root = Tk()
+    root.geometry("1280x800")
     root.title('Criss-cross')
     game_run = True
     field = []
