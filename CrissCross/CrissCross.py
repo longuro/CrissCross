@@ -5,10 +5,8 @@ import numpy as np
 
 def start():
     root = Tk()
-    root.geometry("1280x800")
+    root.geometry("525x695")
     root.title('Criss-cross')
-    game_run = True
-    field = []
     cross_count = 0
 
     def new_game():
@@ -30,13 +28,6 @@ def start():
             if game_run and cross_count < 5:
                 computer_move()
                 check_win('O')
-
-    def check_win(smb):
-        for n in range(3):
-            check_line(field[n][0], field[n][1], field[n][2], smb)
-            check_line(field[0][n], field[1][n], field[2][n], smb)
-        check_line(field[0][0], field[1][1], field[2][2], smb)
-        check_line(field[2][0], field[1][1], field[0][2], smb)
 
     def can_win(a1,a2,a3,smb):
         res = False
@@ -76,22 +67,30 @@ def start():
             if field[row][col]['text'] == ' ':
                 field[row][col]['text'] = 'O'
                 break
-    def check_line(a1,a2,a3,smb):
-        if a1['text'] == smb and a2['text'] == smb and a3['text'] == smb:
-            a1['background'] = a2['background'] = a3['background'] = 'green'
-            global game_run
-            game_run = False
 
     for row in range(3):
         line = []
         for col in range(3):
-            button = Button(root, text=' ', width=4, height=2, font=('Arial', 20), background='white', command=lambda row=row, col=col: click(row,col))
+            button = Button(root, text=' ', width=10, height=6, font=('Arial', 20), background='white', command=lambda row=row, col=col: click(row,col))
             button.grid(row=row, column=col, sticky='nsew')
             line.append(button)
         field.append(line)
     new_button = Button(root, text='Новая игра', command=new_game)
     new_button.grid(row=3, column=0, columnspan=3, sticky='nsew')
     root.mainloop()
+
+def check_win(smb):
+    for n in range(3):
+        check_line(field[n][0], field[n][1], field[n][2], smb)
+        check_line(field[0][n], field[1][n], field[2][n], smb)
+    check_line(field[0][0], field[1][1], field[2][2], smb)
+    check_line(field[2][0], field[1][1], field[0][2], smb)
+    
+def check_line(a1,a2,a3,smb):
+    if a1['text'] == smb and a2['text'] == smb and a3['text'] == smb:
+        a1['background'] = a2['background'] = a3['background'] = 'green'
+        global game_run
+        game_run = False
 
 def ex():
     global win
@@ -104,10 +103,12 @@ def rule():
     ft.pack()
     rules_win.mainloop()
 
+field = []
+game_run = True
 cross_count = 0
 wind=Tk()
 wind.title("Крестики-Нолики")
-wind.geometry("1280x800")
+wind.geometry("1440x800")
 btn=Button(wind, command=start, text="Начать игру",fg="white", bg="grey", font="Arial 40", width=10)
 rules=Button(wind, command=rule, text="Правила", fg="white", bg="grey", font="Arial 40", width=10)
 lbl=Label(wind,text="Добро пожаловать в Крестики-Нолики!", font="Arial 27" ,height=3)
