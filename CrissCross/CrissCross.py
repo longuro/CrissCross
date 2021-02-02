@@ -78,6 +78,7 @@ def start():
     new_button = Button(root, text='Новая игра', command=new_game)
     new_button.grid(row=3, column=0, columnspan=3, sticky='nsew')
     root.mainloop()
+    mainloop()
 
 def check_win(smb):
     for n in range(3):
