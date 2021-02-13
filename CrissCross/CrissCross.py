@@ -2,8 +2,6 @@ from tkinter import *
 from math import *
 import random
 import numpy as np
-import sys
-import os
 from Results import*
 
 def start():
@@ -101,11 +99,12 @@ def check_line(a1,a2,a3,smb):
         global game_run
         game_run = False
         if game_run == False:
+            results_add(res2)
             victory=Tk()
             victory.title("Результат игры")
             victory.geometry("1440x800")
             results=Label(victory,text=winres, font="Arial 27" ,height=3)
-            results.grid(row=0, column=1)
+            results.pack()
             victory.mainloop()
 
 def ex():
@@ -120,12 +119,14 @@ def rule():
     rules_win.mainloop()
 
 def results_check():
-    results_file=open("CrissCross/results.txt",'r')
-    mas=[] 
-    for row in results_file:
-        mas.append(row.strip())
-    results_file.close()
-    return mas
+    res_win=Tk()
+    res_win.mainloop()
+    results_file=open("CrissCross/results.txt"), read()
+    print(results_file)
+    R = Text(res_win, height=15, width=60)
+    R.pack()
+    R.insert(END,results_file)
+    res_win.mainloop()
 
 field = []
 game_run = True

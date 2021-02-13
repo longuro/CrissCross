@@ -1,8 +1,6 @@
 from tkinter import *
-from CrissCross import*
 
-def results_add(res2):
-    results_file=open("results.txt",'r')
-    res2.append()
-    file.write(res + '\n')
-    file.close()
+def results_add(rs):
+    results_file=open("CrissCross/results.txt",'w')
+    results_file.write(rs + '\n')
+    results_file.close()
