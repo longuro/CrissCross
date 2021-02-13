@@ -2,6 +2,8 @@ from tkinter import *
 from math import *
 import random
 import numpy as np
+import sys
+import os
 from Results import*
 
 def start():
@@ -79,7 +81,6 @@ def start():
     new_button = Button(root, text='Новая игра', command=new_game)
     new_button.grid(row=3, column=0, columnspan=3, sticky='nsew')
     root.mainloop()
-    mainloop()
 
 def check_win(smb):
     for n in range(3):
@@ -87,6 +88,25 @@ def check_win(smb):
         check_line(field[0][n], field[1][n], field[2][n], smb)
     check_line(field[0][0], field[1][1], field[2][2], smb)
     check_line(field[2][0], field[1][1], field[0][2], smb)
+
+def check_line(a1,a2,a3,smb):
+    if a1['text'] == smb and a2['text'] == smb and a3['text'] == smb:
+        a1['background'] = a2['background'] = a3['background'] = 'green'
+        if a1['text'] == 'O' and a2['text'] == 'O' and a3['text'] == 'O':
+            winres = 'Вы проиграли!'
+            res2 = 'Проигрыш'
+        elif a1['text'] == 'X' and a2['text'] == 'X' and a3['text'] == 'X':
+            winres = 'Вы выиграли!'
+            res2 = 'Выигрыш'
+        global game_run
+        game_run = False
+        if game_run == False:
+            victory=Tk()
+            victory.title("Результат игры")
+            victory.geometry("1440x800")
+            results=Label(victory,text=winres, font="Arial 27" ,height=3)
+            results.grid(row=0, column=1)
+            victory.mainloop()
 
 def ex():
     global win
@@ -99,7 +119,14 @@ def rule():
     ft.pack()
     rules_win.mainloop()
 
-global game_run
+def results_check():
+    results_file=open("CrissCross/results.txt",'r')
+    mas=[] 
+    for row in results_file:
+        mas.append(row.strip())
+    results_file.close()
+    return mas
+
 field = []
 game_run = True
 cross_count = 0
@@ -110,8 +137,8 @@ btn=Button(wind, command=start, text="Начать игру",fg="white", bg="gre
 rules=Button(wind, command=rule, text="Правила", fg="white", bg="grey", font="Arial 40", width=10)
 lbl=Label(wind,text="Добро пожаловать в Крестики-Нолики!", font="Arial 27" ,height=3)
 exit=Button(wind, command=ex, text="Выход", fg="white", bg="grey", font="Arial 40", width=10)
-nickname = Entry(wind, text="Введите свой никнейм", fg="white", bg="grey", font="Arial 20", width=10)
-nickname.grid(row=3, column=1)
+resu = Button(wind, command=results_check, text="Результаты", fg="white", bg="grey", font="Arial 40", width=10)
+resu.grid(row=5, column=2)
 exit.grid(row=1, column=2)
 lbl.grid(row=0, column=1)
 btn.grid(row=1, column=0)
